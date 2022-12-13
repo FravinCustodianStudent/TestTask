@@ -3,7 +3,7 @@
         xmlns:vm="using:AvaloniaApplication1.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="750"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication1"
@@ -20,30 +20,30 @@
         <Grid RowDefinitions="Auto,Auto,Auto">
             <Grid>
                 <Grid Height="40" Background="Black">
-					<Grid  Height="40" ColumnDefinitions="*, *, *,*">
-                        <TextBlock Width="150" Text="{Binding Playlist.Name, Mode=TwoWay}"/>
-                        <TextBlock Grid.Column="1" Width="150" Text="{Binding Playlist.AvatarUrl, Mode=TwoWay}"/>
-                        <TextBlock Grid.Column="2" Width="150" Text="{Binding Playlist.Description, Mode=TwoWay}"/>
+					<Grid  Height="40" ColumnDefinitions="Auto, Auto, Auto,Auto">
+                        <TextBlock Width="450" Text="{Binding Playlist^.Name,FallbackValue='Wait a second'}"/>
+                        <TextBlock Grid.Column="1" Width="450" Text="{Binding Playlist^.AvatarUrl,FallbackValue='Wait a second'}"/>
+                        <TextBlock Grid.Column="2" Width="450" Text="{Binding Playlist^.Description,FallbackValue='Wait a second'}"/>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" Background="Black">
                 <Grid Height="40" ColumnDefinitions="*, *, *,*">
                     <Label Width="50">Name</Label>
-                    <Label Grid.Column="1" Width="100">Artist Name</Label>
-                    <Label Grid.Column="2" Width="100">Album Name</Label>
-                    <Label Grid.Column="3" Width="100">Duration</Label>
+                    <Label Grid.Column="1" Width="450">Artist Name</Label>
+                    <Label Grid.Column="2" Width="450">Album Name</Label>
+                    <Label Grid.Column="3" Width="450">Duration</Label>
                 </Grid>
             </Grid>
             <Grid Grid.Row="2">
-                <ListBox Items="{Binding Playlist.Tracks}">
+                <ListBox Items="{Binding Playlist^.Tracks}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid  Height="40" ColumnDefinitions="*, *, *,*">
-                                <TextBlock Width="50" Text="{Binding Name, Mode=TwoWay}"/>
-                                <TextBlock Grid.Column="1" Width="50" Text="{Binding ArtistName, Mode=TwoWay}"/>
-                                <TextBlock Grid.Column="2" Width="30" Text="{Binding AlbumName, Mode=TwoWay}"/>
-                                <TextBlock Grid.Column="3" Width="30" Text="{Binding Duration, Mode=TwoWay}"/>
+                                <TextBlock Width="400" Text="{Binding Name, Mode=TwoWay,FallbackValue='Wait a second'}"/>
+                                <TextBlock Grid.Column="1" Width="400" Text="{Binding ArtistName, Mode=TwoWay,FallbackValue='Wait a second'}"/>
+                                <TextBlock Grid.Column="2" Width="250" Text="{Binding AlbumName, Mode=TwoWay,FallbackValue='Wait a second'}"/>
+                                <TextBlock Grid.Column="3" Width="250" Text="{Binding Duration, Mode=TwoWay,FallbackValue='Wait a second'}"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

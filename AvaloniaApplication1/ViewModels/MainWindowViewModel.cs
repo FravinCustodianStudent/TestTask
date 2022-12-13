@@ -1,35 +1,37 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using AvaloniaApplication1.Models;
 using AvaloniaApplication1.Services;
+using ReactiveUI;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase,IActivatableViewModel
     {
-        public Playlist Playlist { get; set; }
-        public List<Track> list { get; set; }
+        public Task<Playlist> Playlist => SetPlaylist(@"https://music.amazon.com/playlists/B01M11SBC8");
 
-        public MainWindowViewModel()
+
+        public MainWindowViewModel() : base()
         {
-            PlaylistService service= new PlaylistService();
-            var s = service.GetPlaylist(@"https://music.amazon.com/albums/B0BLH6NR6N");
-            Playlist = new Playlist();
-            Playlist.Name = "example";
-            Playlist.AvatarUrl = "url";
-            Playlist.Description = "description";
-            
-            Playlist.Tracks = new List<Track>();
-            for (int i = 0; i < 3; i++)
-            {
-                Playlist.Tracks.Add(new Track()
-                {
-                    Name = i.ToString(),
-                    ArtistName = (i+2).ToString(),
-                    AlbumName = (i+3).ToString(),
-                    Duration = (i+4).ToString()
-                });
-            }
+            Activator = new ViewModelActivator();
         }
+
+        private void WhenActivated(Action<Action<IDisposable>> block)
+        {
+            throw new NotImplementedException();
+        }
+
+        async public Task<Playlist> SetPlaylist(string url)
+        {
+            PlaylistService service = new PlaylistService();
+            var result = await service.GetPlaylist(url);
+
+            return result;
+        }
+
+        public ViewModelActivator Activator { get; }
     }
 }
